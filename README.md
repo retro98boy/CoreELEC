@@ -1,3 +1,16 @@
+# 快速编译
+
+```
+# 首次编译前构建Docker镜像
+docker buildx build -t retro98boy/coreelec-dev:latest custom-build
+
+# 构建tar文件
+make -f custom-build/docker-run.mk 'make'
+
+# 构建img文件
+make -f custom-build/docker-run.mk 'make image'
+```
+
 # CoreELEC
 
 CoreELEC is a 'Just enough OS' Linux distribution for running the award-winning [Kodi](https://kodi.tv) software on popular low-cost hardware. CoreELEC is a minor fork of [LibreELEC](https://libreelec.tv), it's built by the community for the community. [CoreELEC website](http://coreelec.org).
