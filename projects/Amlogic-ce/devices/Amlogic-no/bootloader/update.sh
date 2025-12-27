@@ -98,6 +98,9 @@ for arg in $(cat /proc/cmdline); do
           *khadas_vim4*)
             SUBDEVICE="Khadas_VIM4"
             ;;
+          *aoc_65t33z*)
+            SUBDEVICE="AOC_65T33Z"
+            ;;
           *khadas_vim1s*)
             SUBDEVICE="Khadas_VIM1S"
             ;;
