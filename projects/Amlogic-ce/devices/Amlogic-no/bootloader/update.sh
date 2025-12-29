@@ -101,6 +101,9 @@ for arg in $(cat /proc/cmdline); do
           *aoc_65t33z*)
             SUBDEVICE="AOC_65T33Z"
             ;;
+          *corelab_tvpro*)
+            SUBDEVICE="CoreLab_TVPro"
+            ;;
           *khadas_vim1s*)
             SUBDEVICE="Khadas_VIM1S"
             ;;
