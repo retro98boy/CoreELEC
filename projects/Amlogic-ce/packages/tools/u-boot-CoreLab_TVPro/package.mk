@@ -2,7 +2,7 @@
 # Copyright (C) 2022-present Team CoreELEC (https://coreelec.org)
 
 PKG_NAME="u-boot-CoreLab_TVPro"
-PKG_VERSION="b17f24492abbbcc404b47b512a4864b517144e6a"
+PKG_VERSION="f3ead03ecb26d52e5fcf71ab077b5932e264dce9"
 PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.denx.de/wiki/U-Boot"
