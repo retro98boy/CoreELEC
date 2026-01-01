@@ -11,6 +11,16 @@ make -f custom-build/docker-run.mk 'make'
 make -f custom-build/docker-run.mk 'make image'
 ```
 
+# 更新系统
+
+CoreELEC-Amlogic-no.aarch64-22.0-xxxx.img.gz和CoreELEC-Amlogic-no.aarch64-22.0-xxxx.tar都可以用于更新，区别是：
+
+.tar包只会更新内核和rootfs，不会更新bootloader
+
+.img.gz包会更新内核、rootfs和bootloader。如果设备是用原机安卓系统的U-Boot来引导的镜像，那么不应该使用.img.gz包更新，否则原机安卓系统可能会无法工作
+
+只需要将.tar或者.img.gz文件上传到CoreELEC系统中，使用`update-ce path-to-update-file`就可以完成更新
+
 # CoreELEC
 
 CoreELEC is a 'Just enough OS' Linux distribution for running the award-winning [Kodi](https://kodi.tv) software on popular low-cost hardware. CoreELEC is a minor fork of [LibreELEC](https://libreelec.tv), it's built by the community for the community. [CoreELEC website](http://coreelec.org).
