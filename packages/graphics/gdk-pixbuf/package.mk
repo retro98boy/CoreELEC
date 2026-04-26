@@ -3,8 +3,8 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="gdk-pixbuf"
-PKG_VERSION="2.43.2"
-PKG_SHA256="a386a85c74021fa62d22297db122d231cc68fdd342761fb978c446f73f2606dc"
+PKG_VERSION="2.44.6"
+PKG_SHA256="140c2d0b899fcf853ee92b26373c9dc228dbcde0820a4246693f4328a27466fa"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.gtk.org/"
 PKG_URL="https://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/${PKG_VERSION:0:4}/gdk-pixbuf-${PKG_VERSION}.tar.xz"
@@ -25,6 +25,7 @@ pre_configure_target() {
                          -Dman=false \
                          -Drelocatable=false \
                          -Dinstalled_tests=false \
+                         -Dglycin=disabled \
                          -Dtests=false"
 
   if [ "${DISPLAYSERVER}" != "x11" ]; then

@@ -3,8 +3,8 @@
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="vulkan-tools"
-PKG_VERSION="1.4.337"
-PKG_SHA256="09004b5bd702eff3ab9d55a9b0e01bbfb8e5b28d3382c55aa7b2630f0318ae34"
+PKG_VERSION="1.4.349"
+PKG_SHA256="b551b14fbfbdc6d8ffca310a3755f13466f1f17cfb5a76a4384fb9cdda5150cb"
 PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://github.com/KhronosGroup/Vulkan-Tools"
 PKG_URL="https://github.com/KhronosGroup/Vulkan-tools/archive/v${PKG_VERSION}.tar.gz"
@@ -25,7 +25,6 @@ pre_configure_target() {
                          -DBUILD_VULKANINFO=ON \
                          -DBUILD_ICD=OFF \
                          -DBUILD_WSI_DIRECTFB_SUPPORT=OFF \
-                         -DPython3_EXECUTABLE=${TOOLCHAIN}/bin/python3 \
                          -Wno-dev"
 
   if [ "${DISPLAYSERVER}" = "x11" ]; then

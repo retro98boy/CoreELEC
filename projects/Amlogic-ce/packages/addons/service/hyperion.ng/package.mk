@@ -2,13 +2,13 @@
 # Copyright (C) 2018-present Team CoreELEC (https://coreelec.org)
 
 PKG_NAME="hyperion.ng"
-PKG_VERSION="2.0.16"
-PKG_SHA256="966a5494b75708c04213e1c28aff5c9a909b689ccc19d52c6c708a270b00ca8a"
-PKG_REV="119"
+PKG_VERSION="2.2.1"
+PKG_SHA256="4402c7a7e6a755ea2824c09d5d88e0fa39288b810a3cbf16c5104a0cb9160a78"
+PKG_REV="122"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/hyperion-project/hyperion.ng"
 PKG_URL="https://github.com/hyperion-project/hyperion.ng/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain Python3 libusb qt5 protobuf flatbuffers:host flatbuffers libjpeg-turbo qmdnsengine mbedtls alsa-lib"
+PKG_DEPENDS_TARGET="toolchain Python3 libusb libdrm libftdi1 qt6 protobuf flatbuffers:host flatbuffers libjpeg-turbo qmdnsengine mbedtls alsa-lib"
 PKG_SECTION="service"
 PKG_SHORTDESC="Hyperion.NG: an AmbiLight controller"
 PKG_LONGDESC="Hyperion.NG(${PKG_VERSION}) is an modern opensource AmbiLight implementation."
@@ -24,6 +24,8 @@ post_unpack() {
 }
 
 pre_configure_target() {
+  CXXFLAGS+=" -Wno-reorder"
+
   PKG_CMAKE_OPTS_TARGET="-DCMAKE_NO_SYSTEM_FROM_IMPORTED=ON \
                          -DCMAKE_BUILD_TYPE=Release \
                          -DUSE_PRE_BUILT_DEPS=ON \
@@ -41,6 +43,8 @@ pre_configure_target() {
                          -DENABLE_DEV_WS281XPWM=OFF \
                          -DENABLE_X11=OFF \
                          -DENABLE_V4L2=ON \
+                         -DENABLE_QT=OFF \
+                         -DENABLE_REMOTE_CTL=OFF \
                          -DENABLE_OSX=OFF \
                          -DENABLE_DEV_SPI=ON \
                          -DENABLE_MDNS=ON \
@@ -53,5 +57,5 @@ pre_configure_target() {
 
 addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
-    cp ${PKG_BUILD}/.${TARGET_NAME}/bin/* ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
+    cp ${PKG_BUILD}/.${TARGET_NAME}/bin/hyperiond ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
 }

@@ -19,7 +19,7 @@ if [ "${MOLD_SUPPORT}" = "yes" ]; then
 fi
 
 case ${TARGET_ARCH} in
-  arm | riscv64)
+  arm | aarch64 | riscv64)
     OPTS_LIBATOMIC="--enable-libatomic"
     ;;
   *)
@@ -117,6 +117,11 @@ post_make_host() {
     ${TARGET_PREFIX}strip ${TARGET_NAME}/libgcc/libgcc_s.so*
     ${TARGET_PREFIX}strip ${TARGET_NAME}/libstdc++-v3/src/.libs/libstdc++.so*
   fi
+
+  if [ "${OPTS_LIBATOMIC}" = "--enable-libatomic" ]; then
+    mkdir -p ${SYSROOT_PREFIX}/usr/lib
+    cp -P ${PKG_BUILD}/.${HOST_NAME}/${TARGET_NAME}/libatomic/.libs/libatomic.so* ${SYSROOT_PREFIX}/usr/lib
+  fi
 }
 
 post_makeinstall_host() {
@@ -168,6 +173,14 @@ makeinstall_target() {
   mkdir -p ${INSTALL}/usr/lib
     cp -P ${PKG_BUILD}/.${HOST_NAME}/${TARGET_NAME}/libgcc/libgcc_s.so* ${INSTALL}/usr/lib
     cp -P ${PKG_BUILD}/.${HOST_NAME}/${TARGET_NAME}/libstdc++-v3/src/.libs/libstdc++.so* ${INSTALL}/usr/lib
+    if [ "${SANITIZER_SUPPORT}" = "yes" ]; then
+      for f in ${PKG_BUILD}/.${HOST_NAME}/${TARGET_NAME}/libsanitizer/*/.libs/*.so*; do
+        # exclude so.0.0.0T files
+        if [[ ! "${f}" =~ T$ ]]; then
+          cp -P "${f}" ${INSTALL}/usr/lib
+        fi
+      done
+    fi
     if [ "${OPTS_LIBATOMIC}" = "--enable-libatomic" ]; then
       cp -P ${PKG_BUILD}/.${HOST_NAME}/${TARGET_NAME}/libatomic/.libs/libatomic.so* ${INSTALL}/usr/lib
     fi

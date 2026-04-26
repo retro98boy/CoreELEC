@@ -4,12 +4,12 @@
 # Copyright (C) 2024-present Team CoreELEC (https://coreelec.org)
 
 PKG_NAME="linux"
-PKG_VERSION="27683ab11949b3fd1d9a4d788794cfc190aefec0"
+PKG_VERSION="84933af01a34d95891024a6da162ae1b20c78e03"
 PKG_SHA256=""
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kernel.org"
 PKG_URL="https://github.com/retro98boy/coreelec-linux-amlogic/archive/${PKG_VERSION}.tar.gz"
-PKG_GIT_BRANCH="5.15.170_202508"
+PKG_GIT_BRANCH="5.15.196_20260225"
 PKG_BUILD_PERF="no"
 PKG_DEPENDS_HOST="ccache:host rsync:host openssl:host"
 PKG_DEPENDS_TARGET="toolchain linux:host kmod:host keyutils aml-dtbtools:host aml-dtbtools ${KERNEL_EXTRA_DEPENDS_TARGET}"
@@ -248,6 +248,25 @@ make_target() {
 
   # collect all device tree in 'coreelec' subfolders
   cp ${DTB_PATH}/coreelec-*/*.dtb ${DTB_PATH} 2>/dev/null || :
+
+  if [ "${LINUX_DECOMPILE_DTB}" = "yes" ]; then
+    echo
+    echo "Decompiling all dtb files..."
+
+    # make folder copy and decompile dtb files in linux build folder
+    pushd ${DTB_PATH} &>/dev/null
+    mkdir -p decompiled-dtb
+
+    for dtb_file in $(ls *.dtb); do
+      dts_file="decompiled-dtb/${dtb_file%.*}.dts"
+      dtc -I dtb -O dts ${dtb_file} -o ${dts_file} 2>&1 | grep -Ev "Warning|incorrect" || : # ignore
+
+      if [ -f ${dts_file} ]; then
+        cp ${dtb_file} decompiled-dtb
+      fi
+    done
+    popd &>/dev/null
+  fi
 
   # combine Amlogic multidtb by dtb.conf
   find_file_path bootloader/dtb.conf

@@ -2,25 +2,21 @@
 # Copyright (C) 2018-present Team CoreELEC (https://coreelec.org)
 
 PKG_NAME="aml-vnc"
-PKG_VERSION="1.2.1"
-PKG_SHA256="751231c4e8c295a71e750b05e5f371395add0cb1853e7f8fcd41ef1067abc4ae"
-PKG_REV="0"
+PKG_VERSION="1.4.0_beta10"
+PKG_SHA256="711b95b4926a92f57ab67909b2db4fe1388f51601935ce88dd789409e8ae1b83"
+PKG_REV="0~beta-10"
 PKG_ARCH="arm aarch64"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/dtechsrv/aml-vnc-server/"
 PKG_URL="https://github.com/dtechsrv/aml-vnc-server/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain libvncserver"
+PKG_DEPENDS_TARGET="toolchain libvncserver libdrm"
 PKG_SECTION="service"
 PKG_SHORTDESC="Amlogic VNC server"
 PKG_LONGDESC="Amlogic VNC server is a Virtual Network Computing (VNC) server for Amlogic devices"
 
 PKG_IS_ADDON="yes"
-PKG_ADDON_NAME="Amlogic VNC"
+PKG_ADDON_NAME="Amlogic VNC Server"
 PKG_ADDON_TYPE="xbmc.service"
-
-pre_configure_target() {
-  export CFLAGS+=" -Wno-incompatible-pointer-types"
-}
 
 makeinstall_target() {
   :

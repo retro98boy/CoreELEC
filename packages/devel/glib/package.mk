@@ -3,16 +3,16 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="glib"
-PKG_VERSION="2.87.0"
-PKG_SHA256="926cf73d8eb90ea341cc2d6fc7b258901e1a086a3808b166b4476d69a98b2401"
+PKG_VERSION="2.88.0"
+PKG_SHA256="3546251ccbb3744d4bc4eb48354540e1f6200846572bab68e3a2b7b2b64dfd07"
 PKG_LICENSE="LGPL"
 PKG_SITE="https://www.gtk.org/"
 PKG_URL="https://download.gnome.org/sources/glib/$(get_pkg_version_maj_min)/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_HOST="libffi:host pcre2:host Python3:host meson:host ninja:host"
-PKG_DEPENDS_TARGET="meson:host ninja:host gcc:host glib:host libffi pcre2 Python3:host util-linux zlib gobject-introspection"
+PKG_DEPENDS_TARGET="meson:host ninja:host gcc:host glib:host libffi pcre2 Python3:host util-linux zlib"
 PKG_LONGDESC="A library which includes support routines for C such as lists, trees, hashes, memory allocation."
 
-PKG_MESON_OPTS_HOST="-Ddefault_library=shared \
+PKG_MESON_OPTS_HOST="-Ddefault_library=static \
                      -Dinstalled_tests=false \
                      -Dlibmount=disabled \
                      -Dintrospection=disabled \
@@ -29,20 +29,7 @@ PKG_MESON_OPTS_TARGET="-Ddefault_library=shared \
                        -Dsystemtap=disabled \
                        -Dbsymbolic_functions=true \
                        -Dsysprof=disabled \
-                       -Dtests=false \
-                       -Dintrospection=enabled"
-
-pre_configure_target() {
-  # tweak the binary names so that it picks up our
-  # wrappers which do the cross-compile with qemu
-  sed -e "s|gir_scanner = .*|gir_scanner = files('${TOOLCHAIN}/bin/g-ir-scanner-wrapper')|" \
-      -e "s|enable_gir = .*|enable_gir = true|" \
-      -e "s|  error('Running binaries|  # error('Running binaries|" \
-      -i ${PKG_BUILD}/meson.build
-
-  sed -e "s|override_find_program('g-ir-compiler'|override_find_program('g-ir-compiler-wrapper'|" \
-      -i ${PKG_BUILD}/girepository/compiler/meson.build
-}
+                       -Dtests=false"
 
 post_makeinstall_target() {
   rm -rf ${INSTALL}/usr/bin
