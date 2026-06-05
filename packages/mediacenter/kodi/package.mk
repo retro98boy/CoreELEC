@@ -3,9 +3,9 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="kodi"
-PKG_VERSION="807ececfaf57541c354cfe7c915786d21ff6ffa1"
-PKG_SHA256="7c46be6b25a269fe1517fa839d1b1a729c04ebbc1f22d978c1af904536c8d9cb"
-PKG_LICENSE="GPL"
+PKG_VERSION="b38586e68ebb6d622841bf1b0b5fe067a174c781"
+PKG_SHA256="240613e47a442be73b7abe41e38a6a5f3cb4acbb2df3a90b71533c56630acf19"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="http://www.kodi.tv"
 PKG_URL="https://github.com/xbmc/xbmc/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain JsonSchemaBuilder:host TexturePacker:host Python3 zlib systemd lzo pcre2 swig:host libass curl exiv2 fontconfig fribidi tinyxml tinyxml2 libjpeg-turbo freetype libcdio taglib libxml2 libxslt nlohmann-json sqlite ffmpeg crossguid libdvdnav libfmt lirc libfstrcmp flatbuffers:host flatbuffers libudfread spdlog libxkbcommon"
@@ -13,6 +13,10 @@ PKG_DEPENDS_UNPACK="commons-lang3 commons-text groovy"
 PKG_DEPENDS_HOST="toolchain"
 PKG_LONGDESC="A free and open source cross-platform media player."
 PKG_BUILD_FLAGS="+speed"
+
+if [ "${TARGET_ARCH}" = "arm" ]; then
+  PKG_BUILD_FLAGS+=" -gold"
+fi
 
 configure_package() {
   # Single threaded LTO is very slow so rely on Kodi for parallel LTO support
@@ -59,6 +63,7 @@ configure_package() {
                    -DWAYLANDPP_SCANNER=${TOOLCHAIN}/bin/wayland-scanner++ \
                    -DWAYLANDPP_PROTOCOLS_DIR=${SYSROOT_PREFIX}/usr/share/waylandpp/protocols"
   else # GBM
+    PKG_PATCH_DIRS+=" reardonia" # temp for testing
     if [ ! "${KODIPLAYER_DRIVER}" = "default" ]; then
       PKG_DEPENDS_TARGET+=" ${KODIPLAYER_DRIVER}"
     fi
@@ -313,6 +318,9 @@ makeinstall_host() {
 
 pre_configure_target() {
   export LIBS="${LIBS} -lncurses"
+  if [ "${TARGET_ARCH}" = "arm" ]; then
+    LDFLAGS+=" -Wl,--allow-shlib-undefined"
+  fi
 }
 
 post_makeinstall_target() {
@@ -364,6 +372,11 @@ post_makeinstall_target() {
   # nvidia: Enable USLEEP to reduce CPU load while rendering
   if listcontains "${GRAPHIC_DRIVERS}" "nvidia"; then
     echo "__GL_YIELD=USLEEP" >> ${INSTALL}/usr/lib/kodi/kodi.conf
+  fi
+
+  # nvidia-ng: prevent high GPU power consumption during video decode
+  if listcontains "${GRAPHIC_DRIVERS}" "nvidia-ng"; then
+    echo "CUDA_DISABLE_PERF_BOOST=1" >> ${INSTALL}/usr/lib/kodi/kodi.conf
   fi
 
   mkdir -p ${INSTALL}/usr/sbin

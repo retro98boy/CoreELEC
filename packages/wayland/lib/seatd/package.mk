@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="seatd"
@@ -9,6 +9,10 @@ PKG_SITE="https://git.sr.ht/~kennylevinsen/seatd"
 PKG_URL="https://git.sr.ht/~kennylevinsen/seatd/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain systemd"
 PKG_LONGDESC="A minimal seat management daemon, and a universal seat management library."
+
+if [ "${DISPLAYSERVER}" != "wl" ]; then
+  PKG_BUILD_FLAGS="-sysroot"
+fi
 
 PKG_MESON_OPTS_TARGET="-Dlibseat-logind=systemd \
                        -Dlibseat-seatd=enabled \
@@ -23,5 +27,7 @@ pre_configure_target() {
 }
 
 post_install() {
-  enable_service seatd.service
+  if [ "${DISPLAYSERVER}" = "wl" ]; then
+    enable_service seatd.service
+  fi
 }

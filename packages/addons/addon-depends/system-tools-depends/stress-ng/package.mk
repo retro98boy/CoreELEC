@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="stress-ng"
-PKG_VERSION="0.20.01"
-PKG_SHA256="f974863d1861e7e7b5d19e381a17f22d653dcafa12096ac96d11b2e62a22ea77"
-PKG_LICENSE="GPLv2"
+PKG_VERSION="0.21.02"
+PKG_SHA256="71502d31f77987c3bda6931d47b44d7b03d8ac689e8154bbda676cf9d42e2b4e"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/ColinIanKing/stress-ng"
 PKG_URL="https://github.com/ColinIanKing/stress-ng/archive/refs/tags/V${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain attr keyutils libaio libcap zlib"

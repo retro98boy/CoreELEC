@@ -5,7 +5,7 @@
 PKG_NAME="udevil"
 PKG_VERSION="666e443c36182751c81f3be3115d0ed9f8f2af58"
 PKG_SHA256="55980a67c0fdc25e3dce7a2d70b9528b8ae3de5cb64a35696f22907175a7272f"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-3.0-or-later"
 PKG_SITE="https://github.com/arnie97/udevil-ng"
 PKG_URL="https://github.com/arnie97/udevil-ng/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain systemd glib"
@@ -29,9 +29,11 @@ post_makeinstall_target() {
   mkdir -p ${INSTALL}/usr/bin
     cp -PR src/udevil ${INSTALL}/usr/bin
 
-  mkdir -p ${INSTALL}/usr/sbin
-  echo -e '#!/bin/sh\nexec /usr/bin/mount -t ntfs3 "$@"' >${INSTALL}/usr/sbin/mount.ntfs
-  chmod 755 ${INSTALL}/usr/sbin/mount.ntfs
+  if [ "${PROJECT}" = "RPi" ] || [ "${PROJECT}" = "Amlogic-ce" ]; then
+    mkdir -p ${INSTALL}/usr/sbin
+    echo -e '#!/bin/sh\nexec /usr/bin/mount -t ntfs3 "$@"' >${INSTALL}/usr/sbin/mount.ntfs
+    chmod 755 ${INSTALL}/usr/sbin/mount.ntfs
+  fi
 }
 
 post_install() {

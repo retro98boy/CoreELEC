@@ -1,18 +1,19 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="moby"
-PKG_VERSION="29.4.1"
-PKG_SHA256="89ef4a0f681ae2c9f7449591243e1e932d86e6086ac3392a47da80c10b1a3d58"
-PKG_LICENSE="ASL"
+PKG_VERSION="29.5.2"
+PKG_SHA256="1235ed325d324c76f52e52beaa1dac85c92a073bf2f9fcc5bb9f67e35a668028"
+PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://mobyproject.org/"
 PKG_URL="https://github.com/moby/moby/archive/docker-v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain go:host nftables systemd"
 PKG_LONGDESC="Moby is an open-source project created by Docker to enable and accelerate software containerization."
 PKG_TOOLCHAIN="manual"
+PKG_NO_REFRESH_PATCHES="tools/moby/gen-patches.sh"
 
 # Git commit of the matching release https://github.com/moby/moby
-export PKG_GIT_COMMIT="6c91b92cc71077b70c779c510da125301a8e40f3"
+export PKG_GIT_COMMIT="568f755ebeb1ac9c6a8febbda6cd371ea0a9630b"
 
 PKG_MOBY_BUILDTAGS="daemon \
                     autogen \

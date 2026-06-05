@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2018-present Frank Hartung (supervisedthinking (@) gmail.com)
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="vulkan-loader"
-PKG_VERSION="1.4.349"
-PKG_SHA256="411d62d2b899193cbba72f3c54b6866eb50549b9ea96cf33034cdf2f6644d941"
+PKG_VERSION="1.4.352"
+PKG_SHA256="4b0572323a70aca059995407ceecd40ebcc3c2a14b3979a37a3aca9eee3e6a17"
 PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://github.com/KhronosGroup/Vulkan-Loader"
 PKG_URL="https://github.com/KhronosGroup/Vulkan-Loader/archive/v${PKG_VERSION}.tar.gz"

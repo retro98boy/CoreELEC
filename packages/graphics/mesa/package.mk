@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mesa"
-PKG_VERSION="26.0.5"
-PKG_SHA256="d229c9937d9a25ca0a8958c59f425174563d300ec42acbea2dbe84a055023368"
-PKG_LICENSE="OSS"
+PKG_VERSION="26.1.2"
+PKG_SHA256="bac2bca9121897a2b8162e79636b50ac998fca799c8e6cf914edd85962babdf0"
+PKG_LICENSE="MIT"
 PKG_SITE="http://www.mesa3d.org/"
 PKG_URL="https://mesa.freedesktop.org/archive/mesa-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_HOST="toolchain:host expat:host libclc:host libdrm:host Mako:host pyyaml:host spirv-tools:host"
@@ -19,12 +19,19 @@ if [ "${DEVICE}" = "Dragonboard" ]; then
 fi
 
 PKG_MESON_OPTS_HOST="-Dglvnd=disabled \
-                     -Dgallium-drivers=iris \
+                     -Dgallium-drivers= \
                      -Dplatforms= \
                      -Dglx=disabled \
                      -Dvulkan-drivers= \
                      -Dshared-llvm=disabled \
-                     -Dtools=panfrost"
+                     -Dtools=panfrost \
+                     -Dvideo-codecs= \
+                     -Dbuild-tests=false \
+                     -Denable-glcpp-tests=false \
+                     -Dmesa-clc=enabled \
+                     -Dinstall-mesa-clc=true \
+                     -Dprecomp-compiler=enabled \
+                     -Dinstall-precomp-compiler=true"
 
 PKG_MESON_OPTS_TARGET="-Dgallium-drivers=${GALLIUM_DRIVERS// /,} \
                        -Dgallium-extra-hud=false \

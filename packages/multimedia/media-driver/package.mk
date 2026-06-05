@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="media-driver"
-PKG_VERSION="26.1.6"
-PKG_SHA256="85743dad01a54c85f3fbd0285bbdb01c00cfde0f8a79efa5b66376d536221420"
+PKG_VERSION="26.2.1"
+PKG_SHA256="65bc05de32869ed73bcc6e7275d425987adfff792152565440f45d6b54fe1b9d"
 PKG_ARCH="x86_64"
 PKG_LICENSE="MIT"
 PKG_SITE="https://01.org/linuxmedia"
@@ -12,8 +12,7 @@ PKG_DEPENDS_TARGET="toolchain libva libdrm gmmlib"
 PKG_LONGDESC="media-driver: The Intel(R) Media Driver for VAAPI is a new VA-API (Video Acceleration API) user mode driver supporting hardware accelerated decoding, encoding, and video post processing for GEN based graphics hardware."
 
 pre_configure_target() {
-  # build with gcc 15 (since 15-20250330, build is successful with 15-20250316) fails
-  # unless this error is degraded to a warning
+  # intel media-driver triggers array-bounds errors; upstream bug: https://github.com/intel/media-driver/issues/1922
   export CXXFLAGS+=" -Wno-error=array-bounds="
 }
 

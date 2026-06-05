@@ -1,13 +1,13 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2018-present Team LibreELEC
 
 PKG_NAME="atf"
-PKG_VERSION="2.14.1"
-PKG_SHA256="f70d2eb40c2d9912562ef15d450e03726b95abd6d16db4d46cd923ba5a029646"
+PKG_VERSION="2.15.0"
+PKG_SHA256="67b772aaa58218712c062ccd103f1d53cf74d9543e251f20ac037a6dbf821a10"
 PKG_ARCH="arm aarch64"
-PKG_LICENSE="BSD-3c"
+PKG_LICENSE="BSD-3-Clause"
 PKG_SITE="https://github.com/ARM-software/arm-trusted-firmware"
-PKG_URL="https://github.com/TrustedFirmware-A/trusted-firmware-a/archive/lts-v${PKG_VERSION}.tar.gz"
+PKG_URL="https://github.com/TrustedFirmware-A/trusted-firmware-a/archive/v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="ARM Trusted Firmware is a reference implementation of secure world software, including a Secure Monitor executing at Exception Level 3 and various Arm interface standards."
 PKG_TOOLCHAIN="manual"

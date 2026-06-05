@@ -2,10 +2,10 @@
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nextpvr"
-PKG_VERSION="7.0.4"
-PKG_REV="2"
+PKG_VERSION="7.0.5"
+PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="NextPVR"
+PKG_LICENSE="LicenseRef-NextPVR"
 PKG_SITE="https://nextpvr.com"
 PKG_DEPENDS_TARGET="toolchain libhdhomerun libmediainfo comskip"
 PKG_SECTION="service"

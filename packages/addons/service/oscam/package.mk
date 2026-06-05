@@ -1,12 +1,12 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="oscam"
-PKG_VERSION="11953"
-PKG_SHA256="9b271fd04e8696667a5a4333b60cad00ee3ab6bccd034b0fae30d19d5e510a95"
+PKG_VERSION="11961"
+PKG_SHA256="5ccb30e7378bb33c08b41c11b297d7c28a5c4542e9ebbc88b8669fbc9d43737d"
 PKG_REV="4"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-3.0-only"
 PKG_SITE="https://git.streamboard.tv/common/oscam/-/wikis"
 PKG_URL="https://git.streamboard.tv/common/oscam/-/archive/${PKG_VERSION}/oscam-${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain openssl pcsc-lite"
@@ -16,6 +16,9 @@ PKG_LONGDESC="OSCam is a software to be used to decrypt digital television chann
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="OSCam"
+PKG_ADDON_ICON_NAME="none"
+PKG_ADDON_ICON_SIZE="250"
+PKG_ADDON_ICON_OFFSET='+5'
 PKG_ADDON_TYPE="xbmc.service"
 
 PKG_CMAKE_OPTS_TARGET="\
